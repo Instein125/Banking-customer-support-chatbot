@@ -14,7 +14,7 @@ def clear_input_field():
     st.session_state.user_input = ""
 
 def main():
-    st.title("Customer Chat System")
+    st.title("Banking Customer Chat System ")
     chat_container = st.container()
 
     if "send_input" not in st.session_state:

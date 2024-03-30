@@ -8,7 +8,7 @@ def get_llm():
     """Returns a Gemini LLM model"""
     api_key = "AIzaSyBJP9fCZ-NtOZ8GFscCWAztxo7_5sb9-Jk"
     genai.configure(api_key=api_key)
-    llm = ChatGoogleGenerativeAI(model='gemini-pro', temperature=0.5, convert_system_message_to_human=True)
+    llm = ChatGoogleGenerativeAI(model='gemini-pro', temperature=0.6, convert_system_message_to_human=True)
     return llm
 
 def create_chat_memory(chat_history):
