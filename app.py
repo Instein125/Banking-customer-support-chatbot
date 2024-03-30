@@ -6,25 +6,34 @@ import speech_recognition as sr
 from audio_utils import *
 
 def set_send_input():
+    """Sets the send_input session state to True."""
     st.session_state.send_input = True
     clear_input_field()
 
 def clear_input_field():
+    """Clears the user input text field."""
     st.session_state.user_question = st.session_state.user_input
     st.session_state.user_input = ""
 
 def main():
+    # Set app title
     st.title("Banking Customer Chat System ")
+
+    # Container for chat history
     chat_container = st.container()
 
+    # Initialize session state variables
     if "send_input" not in st.session_state:
         st.session_state.send_input = False
         st.session_state.user_question = ""
 
+    # Initializing chat history
     chat_history = StreamlitChatMessageHistory(key = 'history')
 
+    # Initialize ChatBot instance
     chatbot = ChatBot(chat_history=chat_history)
 
+    # Text input field for user questions/messages
     user_input = st.text_input("Type your message", key="user_input", on_change=set_send_input)
 
     #Column for text field and voice recording field
@@ -37,6 +46,7 @@ def main():
     with send_button_column:
         send_button = st.button("Send", key="send_button", on_click=clear_input_field)
     
+    # Handling voice recording input
     if voice_recording:
         try:
             transcribed_audio = transcribe_audio(voice_recording)
@@ -45,7 +55,8 @@ def main():
             play_audio("response.wav")
         except:
             pass
-
+    
+    # Handling text input
     if send_button or st.session_state.send_input:
         if st.session_state.user_question != "":
             response = chatbot.get_response(st.session_state.user_question)
@@ -53,6 +64,7 @@ def main():
             text_to_speech(response)
             play_audio("response.wav")
 
+    # Display chat history
     if chat_history.messages != []:
         with chat_container:
             st.write("Chat History:")
