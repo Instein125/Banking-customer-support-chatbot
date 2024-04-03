@@ -2,7 +2,6 @@ import streamlit as st
 from streamlit_mic_recorder import mic_recorder
 from langchain.memory import StreamlitChatMessageHistory
 from chatbot import ChatBot
-import speech_recognition as sr
 from audio_utils import *
 
 def set_send_input():
