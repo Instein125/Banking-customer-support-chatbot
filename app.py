@@ -51,6 +51,8 @@ def main():
         try:
             transcribed_audio = transcribe_audio(voice_recording)
             response = chatbot.get_response(transcribed_audio)
+            intent = chatbot.classify_text(transcribed_audio)
+            st.write("User intent for the query is: ", intent)
             text_to_speech(response)
             play_audio("response.wav")
         except:
@@ -60,6 +62,8 @@ def main():
     if send_button or st.session_state.send_input:
         if st.session_state.user_question != "":
             response = chatbot.get_response(st.session_state.user_question)
+            intent = chatbot.classify_text(st.session_state.user_question)
+            st.write("User intent for the query is: ", intent)
             st.session_state.user_question = ""
             text_to_speech(response)
             play_audio("response.wav")
