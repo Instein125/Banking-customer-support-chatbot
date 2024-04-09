@@ -18,7 +18,7 @@ def get_llm():
     """Returns a Gemini LLM model"""
     api_key = "AIzaSyBJP9fCZ-NtOZ8GFscCWAztxo7_5sb9-Jk"
     genai.configure(api_key=api_key)
-    llm = ChatGoogleGenerativeAI(model='gemini-pro', temperature=0.6, convert_system_message_to_human=True)
+    llm = ChatGoogleGenerativeAI(model='gemini-pro', temperature=0.6, convert_system_message_to_human=True, google_api_key = api_key)
     return llm
 
 def create_chat_memory(chat_history):
@@ -28,7 +28,7 @@ def create_chat_memory(chat_history):
 def get_llm_chain(llm, memory):
     """Returns a LLMChain object with a template for a virtual assistant for banking customer support."""
     template = """
-    Act as a vitual assistant for banking custumer support sector. Your name is Sayogi.
+    Act as a virtual assistant for banking customer support sector. Your name is Sayogi.
     Generate a helpful and informative response that addresses their banking needs while maintaining a friendly and professional tone.
     Try to response with a short answer using simple language without technical terms in the response.
 
@@ -68,7 +68,7 @@ class ChatBot:
         # Find the most similar text in the dataset
         most_similar_idx = np.argmax(cosine_scores)
 
-        # Retrieve the corresponding intent label from the dataset
+        # Retrieve the corresponding intent from the dataset
         predicted_intent = self.dataset["intents"].iloc[most_similar_idx]  
         return predicted_intent
     
